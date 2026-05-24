@@ -17,7 +17,7 @@ export const PROVIDERS = {
   deepseek: {
     label: "DeepSeek",
     envKey: "DEEPSEEK_API_KEY",
-    defaultModel: "deepseek-chat",
+    defaultModel: "deepseek-v4-flash",
     chatCompletionsUrl: "https://api.deepseek.com/chat/completions"
   }
 };
