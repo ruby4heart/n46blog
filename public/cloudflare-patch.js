@@ -195,8 +195,7 @@
       ctx.fillRect(0, bandTop, w, bandHeight);
       ctx.globalAlpha = 1;
       ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, bandBottom, w, canvas.height - bandBottom);
+      drawReadableBodyBackground(ctx, 0, bandBottom, w, canvas.height - bandBottom, theme);
       ctx.fillStyle = theme.a || "#b447c8";
       ctx.fillRect(0, 0, w, 5);
 
@@ -284,6 +283,32 @@
     const dw = img.naturalWidth * scale;
     const dh = img.naturalHeight * scale;
     ctx.drawImage(img, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
+  }
+
+  function drawReadableBodyBackground(ctx, x, y, w, h, theme) {
+    const colorA = theme.a || "#b447c8";
+    const colorB = theme.b || "#7f2aa5";
+    ctx.save();
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(x, y, w, h);
+
+    const sideGlow = ctx.createLinearGradient(x, y, x + w, y);
+    sideGlow.addColorStop(0, rgbaSafe(colorA, 0.11));
+    sideGlow.addColorStop(0.16, rgbaSafe(colorA, 0.065));
+    sideGlow.addColorStop(0.38, "rgba(255, 255, 255, 0)");
+    sideGlow.addColorStop(0.62, "rgba(255, 255, 255, 0)");
+    sideGlow.addColorStop(0.84, rgbaSafe(colorB, 0.065));
+    sideGlow.addColorStop(1, rgbaSafe(colorB, 0.11));
+    ctx.fillStyle = sideGlow;
+    ctx.fillRect(x, y, w, h);
+
+    const centerWash = ctx.createLinearGradient(x, y, x + w, y);
+    centerWash.addColorStop(0, rgbaSafe(colorA, 0.025));
+    centerWash.addColorStop(0.5, "rgba(255, 255, 255, 0)");
+    centerWash.addColorStop(1, rgbaSafe(colorB, 0.025));
+    ctx.fillStyle = centerWash;
+    ctx.fillRect(x, y, w, h);
+    ctx.restore();
   }
 
   function drawShare(ctx, x, y) {
