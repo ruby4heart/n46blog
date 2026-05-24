@@ -1,0 +1,51 @@
+.member-id-list {
+  border: 1px solid rgba(110, 74, 168, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.54);
+  color: var(--muted);
+  font-size: 12px;
+  overflow: hidden;
+}
+
+.member-id-list summary {
+  cursor: pointer;
+  padding: 9px 11px;
+  color: #5b5264;
+  font-weight: 800;
+  list-style-position: inside;
+}
+
+.member-id-list[open] summary {
+  border-bottom: 1px solid rgba(110, 74, 168, 0.12);
+}
+
+.member-id-table {
+  display: grid;
+  max-height: 260px;
+  overflow: auto;
+}
+
+.member-id-table > div {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 10px;
+  padding: 7px 11px;
+  border-top: 1px solid rgba(229, 221, 212, 0.68);
+}
+
+.member-id-table > div:first-child {
+  border-top: 0;
+}
+
+.member-id-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  color: #4a4253;
+  background: #fffaf6;
+  font-weight: 900;
+}
+
+.member-id-table span:first-child {
+  font-variant-numeric: tabular-nums;
+}
