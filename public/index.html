@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>乃木坂46 Blog RSS Studio</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="control-panel" aria-label="控制面板">
+        <div class="brand-block">
+          <div class="brand-mark">46</div>
+          <div>
+            <h1>乃木坂 Blog Studio</h1>
+            <p>RSS 翻译 · 排版 · PNG</p>
+          </div>
+        </div>
+
+        <section class="panel-section">
+          <label for="rssUrls">RSS 链接</label>
+          <textarea id="rssUrls" spellcheck="false" rows="7" placeholder="每行一个 RSS 链接"></textarea>
+          <div class="inline-controls">
+            <label>
+              篇数
+              <input id="entryLimit" type="number" min="1" max="10" value="3">
+            </label>
+            <label>
+              语言
+              <select id="targetLanguage">
+                <option value="简体中文">简体中文</option>
+                <option value="繁体中文">繁体中文</option>
+              </select>
+            </label>
+          </div>
+          <button id="fetchButton" class="button primary" type="button">抓取 RSS</button>
+        </section>
+
+        <section class="panel-section">
+          <label for="apiKey">OpenAI API Key</label>
+          <input id="apiKey" type="password" autocomplete="off" placeholder="可留空使用服务器 .env">
+          <div class="inline-controls">
+            <label>
+              模型
+              <input id="model" type="text" value="gpt-5.4-mini">
+            </label>
+            <label>
+              语气
+              <select id="toneStyle">
+                <option value="自然、亲切、忠实">自然亲切</option>
+                <option value="口语、可爱、保留成员语气">口语可爱</option>
+                <option value="清爽、杂志感、适合长图">杂志感</option>
+              </select>
+            </label>
+          </div>
+          <button id="translateButton" class="button accent" type="button">翻译并排版</button>
+        </section>
+
+        <section class="panel-section">
+          <div class="inline-controls">
+            <label>
+              模板
+              <select id="theme">
+                <option value="official">官网风格</option>
+                <option value="violet">Nogizaka</option>
+                <option value="sakura">Sakura</option>
+                <option value="ink">Ink</option>
+              </select>
+            </label>
+            <label>
+              图片
+              <select id="imageSize">
+                <option value="long">长图</option>
+                <option value="portrait">竖版</option>
+                <option value="square">方图</option>
+              </select>
+            </label>
+          </div>
+          <div class="button-row">
+            <button id="downloadButton" class="button" type="button">下载当前 PNG</button>
+            <button id="downloadAllButton" class="button" type="button">批量 PNG</button>
+          </div>
+        </section>
+
+        <section class="panel-section">
+          <div class="section-caption">图一：正文排版</div>
+          <label class="range-row">
+            字号 <span id="bodyFontSizeValue" class="slider-value">20</span>
+            <input id="bodyFontSize" type="range" min="16" max="28" step="1" value="20">
+          </label>
+          <label class="range-row">
+            行距 <span id="bodyLineHeightValue" class="slider-value">1.85</span>
+            <input id="bodyLineHeight" type="range" min="1.35" max="2.4" step="0.05" value="1.85">
+          </label>
+          <label class="range-row">
+            段距 <span id="paragraphGapValue" class="slider-value">34</span>
+            <input id="paragraphGap" type="range" min="0" max="72" step="2" value="34">
+          </label>
+        </section>
+
+        <section class="panel-section">
+          <div class="section-caption">图二：罗马音注音</div>
+          <div class="inline-controls">
+            <label>
+              显示
+              <select id="rubyMode">
+                <option value="auto">自动</option>
+                <option value="off">关闭</option>
+              </select>
+            </label>
+            <label>
+              大小 <span id="rubySizeValue" class="slider-value">10</span>
+              <input id="rubySize" type="range" min="8" max="16" step="1" value="10">
+            </label>
+          </div>
+          <label class="range-row">
+            透明度 <span id="rubyOpacityValue" class="slider-value">0.60</span>
+            <input id="rubyOpacity" type="range" min="0.25" max="1" step="0.05" value="0.60">
+          </label>
+        </section>
+
+        <div id="status" class="status" role="status">准备就绪</div>
+      </aside>
+
+      <section class="workspace">
+        <div class="list-pane" aria-label="文章列表">
+          <div class="pane-heading">
+            <span>文章</span>
+            <strong id="entryCount">0</strong>
+          </div>
+          <div id="feedChips" class="feed-chips"></div>
+          <div id="entryList" class="entry-list"></div>
+        </div>
+
+        <section class="preview-pane" aria-label="排版预览">
+          <div class="preview-toolbar">
+            <div>
+              <span class="eyebrow">Preview</span>
+              <h2 id="previewTitle">等待 RSS</h2>
+            </div>
+            <a id="sourceLink" href="#" target="_blank" rel="noreferrer">原文</a>
+          </div>
+          <article id="previewCard" class="blog-card theme-official">
+            <div class="empty-state">
+              <strong>把 RSS 链接放进左侧</strong>
+              <span>抓取后选择文章，翻译完成即可导出图片。</span>
+            </div>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>
