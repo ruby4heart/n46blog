@@ -193,6 +193,10 @@
       ctx.fillRect(0, 0, w, bandTop);
       ctx.fillStyle = "#f7f7f8";
       ctx.fillRect(0, bandTop, w, bandHeight);
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, bandBottom, w, canvas.height - bandBottom);
       ctx.fillStyle = theme.a || "#b447c8";
       ctx.fillRect(0, 0, w, 5);
 
@@ -222,7 +226,7 @@
       let textIndex = 0;
       let imageIndex = 0;
       ctx.textAlign = "left";
-      ctx.fillStyle = "#1f2a42";
+      ctx.fillStyle = "#202638";
       ctx.font = fontFor(s.bodyFontSize * 1.5, 600);
       for (const block of blocks) {
         if (block.type === "image") {
