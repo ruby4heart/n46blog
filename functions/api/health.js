@@ -1,5 +1,11 @@
-import { DEFAULT_MODEL, json } from "../_lib/shared.js";
+import { DEFAULT_MODEL, DEFAULT_PROVIDER, PROVIDERS, json, publicProviders } from "../_lib/shared.js";
 
 export function onRequestGet({ env }) {
-  return json({ ok: true, hasServerKey: Boolean(env.OPENAI_API_KEY), defaultModel: DEFAULT_MODEL });
+  return json({
+    ok: true,
+    hasServerKey: Object.values(PROVIDERS).some((provider) => Boolean(env[provider.envKey])),
+    defaultModel: DEFAULT_MODEL,
+    defaultProvider: DEFAULT_PROVIDER,
+    providers: publicProviders()
+  });
 }
