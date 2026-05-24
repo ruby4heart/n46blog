@@ -184,9 +184,9 @@
       canvas.height = Math.max(size.h, height + 120);
 
       const gradient = ctx.createLinearGradient(0, 0, w, canvas.height);
-      gradient.addColorStop(0, rgbaSafe(theme.a, 0.045));
+      gradient.addColorStop(0, rgbaSafe(theme.a, 0.018));
       gradient.addColorStop(0.46, "#ffffff");
-      gradient.addColorStop(1, rgbaSafe(theme.b, 0.045));
+      gradient.addColorStop(1, rgbaSafe(theme.b, 0.018));
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, w, canvas.height);
       ctx.fillStyle = "#ffffff";
