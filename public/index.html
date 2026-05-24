@@ -20,6 +20,7 @@
         <section class="panel-section">
           <label for="rssUrls">RSS 链接</label>
           <textarea id="rssUrls" spellcheck="false" rows="7" placeholder="每行一个 RSS 链接"></textarea>
+          <p class="entry-meta">RSS 链接会自动保存在本浏览器，不会同步到云端。</p>
           <div class="inline-controls">
             <label>
               篇数
@@ -39,6 +40,7 @@
         <section class="panel-section">
           <label for="apiKey">OpenAI API Key</label>
           <input id="apiKey" type="password" autocomplete="off" placeholder="可留空使用服务器 .env">
+          <p class="entry-meta">API Key 只保存在本浏览器；翻译时仅作为请求头发送，不会被本站持久化。</p>
           <div class="inline-controls">
             <label>
               模型
@@ -54,6 +56,7 @@
             </label>
           </div>
           <button id="translateButton" class="button accent" type="button">翻译并排版</button>
+          <button id="clearLocalButton" class="button" type="button">清除本地记录</button>
         </section>
 
         <section class="panel-section">
@@ -150,6 +153,7 @@
       </section>
     </main>
 
+    <script src="/local-memory.js" defer></script>
     <script src="/app.js" defer></script>
   </body>
 </html>
