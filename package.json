@@ -1,0 +1,14 @@
+{
+  "name": "nogizaka-blog-rss-studio",
+  "version": "1.0.0",
+  "description": "Translate Nogizaka46 blog RSS entries with OpenAI and export designed posts as PNG images.",
+  "main": "server.js",
+  "scripts": {
+    "build": "node scripts/restore-assets.js",
+    "start": "npm run build && node server.js",
+    "dev": "npm run build && node server.js"
+  },
+  "keywords": ["rss", "translation", "openai", "blog", "png"],
+  "author": "",
+  "license": "MIT"
+}
