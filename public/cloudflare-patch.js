@@ -117,6 +117,7 @@
     const card = $("previewCard");
     if (!card) return;
     const enhance = () => {
+      softenSupportColors();
       const row = card.querySelector(".theme-official .blog-title-row, .blog-card.theme-official .blog-title-row");
       if (!row || row.querySelector(".blog-share")) return;
       const title = row.querySelector(".blog-title");
@@ -134,6 +135,18 @@
     };
     new MutationObserver(enhance).observe(card, { childList: true, subtree: true });
     enhance();
+  }
+
+  function softenSupportColors() {
+    const card = $("previewCard");
+    if (!card) return;
+    const styles = getComputedStyle(card);
+    const colorA = styles.getPropertyValue("--member-a").trim() || "#b447c8";
+    const colorB = styles.getPropertyValue("--member-b").trim() || "#7f2aa5";
+    card.style.setProperty("--member-soft-a", rgbaSafe(colorA, 0.055));
+    card.style.setProperty("--member-soft-b", rgbaSafe(colorB, 0.055));
+    card.style.setProperty("--member-mid-a", rgbaSafe(colorA, 0.14));
+    card.style.setProperty("--member-mid-b", rgbaSafe(colorB, 0.14));
   }
 
   function patchCanvasRenderer() {
@@ -171,9 +184,9 @@
       canvas.height = Math.max(size.h, height + 120);
 
       const gradient = ctx.createLinearGradient(0, 0, w, canvas.height);
-      gradient.addColorStop(0, rgbaSafe(theme.a, 0.10));
+      gradient.addColorStop(0, rgbaSafe(theme.a, 0.045));
       gradient.addColorStop(0.46, "#ffffff");
-      gradient.addColorStop(1, rgbaSafe(theme.b, 0.10));
+      gradient.addColorStop(1, rgbaSafe(theme.b, 0.045));
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, w, canvas.height);
       ctx.fillStyle = "#ffffff";
