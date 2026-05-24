@@ -24,6 +24,7 @@
     patchCanvasRenderer();
 
     window.setTimeout(() => {
+      restoreProviderModel(provider, model);
       if (!rss.value.trim()) rss.value = DEFAULT_RSS_URL;
       const count = Number(($("entryCount")?.textContent || "0").trim());
       if (!count) {
@@ -31,6 +32,18 @@
         else $("fetchButton")?.click();
       }
     }, 260);
+  }
+
+  function restoreProviderModel(provider, model) {
+    if (model.dataset.touched === "true") return;
+    try {
+      const draft = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || "{}");
+      model.value = typeof draft.model === "string" && draft.model.trim()
+        ? draft.model
+        : PROVIDER_MODELS[provider.value] || PROVIDER_MODELS.openai;
+    } catch {
+      model.value = PROVIDER_MODELS[provider.value] || PROVIDER_MODELS.openai;
+    }
   }
 
   function loadDraft(rss, apiKey, provider, model) {
